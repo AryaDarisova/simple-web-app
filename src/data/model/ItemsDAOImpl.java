@@ -134,4 +134,26 @@ public class ItemsDAOImpl implements ItemsDAO {
         }
         return arrayList;
     }
+
+    @Override
+    public Collection<Item> getItems() {
+        ArrayList<Item> arrayList = new ArrayList<>();
+        Item item;
+        try {
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM items");
+            while (resultSet.next()) {
+                item = new Item();
+                item.setId(Integer.parseInt(resultSet.getString("id")));
+                item.setName(resultSet.getString("name"));
+                item.setDescription(resultSet.getString("description"));
+                item.setCost(Double.parseDouble(resultSet.getString("cost")));
+                arrayList.add(item);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return arrayList;
+    }
 }

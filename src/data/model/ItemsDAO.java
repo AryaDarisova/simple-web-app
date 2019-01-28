@@ -16,4 +16,6 @@ public interface ItemsDAO {
     public Collection<Item> findByName(String name);
 
     public Collection<Item> findByCost(Double cost);
+
+    public Collection<Item> getItems();
 }
